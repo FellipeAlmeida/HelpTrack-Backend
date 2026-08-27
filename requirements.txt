@@ -1,0 +1,6 @@
+fastapi
+alembic
+uvicorn
+dotenv
+psycopg2-binary
+sqlalchemy
