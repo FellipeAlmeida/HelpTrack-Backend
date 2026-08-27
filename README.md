@@ -2,6 +2,18 @@
 
 Sistema de Gerenciamento de Chamados Técnicos de T.I
 
+## Stack Utilizada
+
+- **FastAPI e Python** - Desenvolvimento das APIs
+- **SQLAlchemy** - ORM (Ferramenta para fazer queries no banco com o paradigma de POO)
+- **Alembic** - Migrations para criação e versionamento de versões do banco
+- **Docker** - Criação de containers para orquestração, isolamento e facilitação de deploy
+- **PostgreSQL** - Banco de Dados Relacional
+- **Adminer** - Visualização prática das tabelas e seus valores no banco
+- **Github Actions** - Criação de Pipelines de CI/CD (Continuous Integration e Continuos Delivery)
+- **AWS** - Servidor remoto onde o projeto roda
+- **PyTest** - Testes Unitários para as APIs
+
 ## Como rodar o projeto
 
 Certifique-se de ter o Docker instalado!
