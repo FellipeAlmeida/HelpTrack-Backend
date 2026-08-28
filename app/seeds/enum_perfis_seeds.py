@@ -1,9 +1,6 @@
-from app.database.database import SessionLocal
 from app.models.enum_perfis_model import EnumPerfis
 
-def create_perfis():
-
-    db = SessionLocal
+def create_perfis(db):
 
     perfis = ['admin', 'tecnico', 'cliente', 'superadmin']
 

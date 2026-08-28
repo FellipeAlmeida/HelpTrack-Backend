@@ -1,9 +1,6 @@
-from app.database.database import SessionLocal
 from app.models.status_chamado_model import StatusChamado
 
-def create_status_chamados():
-
-    db = SessionLocal
+def create_status_chamados(db):
 
     tipos_eventos = ['aberto', 'em_analise', 'em_andamento', 'resolvido', 'fechado', 'cancelado']
 

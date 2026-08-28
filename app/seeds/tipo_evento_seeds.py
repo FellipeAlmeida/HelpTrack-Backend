@@ -1,9 +1,6 @@
-from app.database.database import SessionLocal
 from app.models.tipos_eventos_model import TiposEvento
 
-def create_tipos_eventos():
-
-    db = SessionLocal
+def create_tipos_eventos(db):
 
     tipos_evento = ['criacao', 'alteracao_status', 'alteracao_prioridade', 'atribuicao', 'fechamento', 'reabertura']
 

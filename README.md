@@ -1,6 +1,6 @@
 # HelpTrack
 
-Sistema de Gerenciamento de Chamados Técnicos de T.I
+SaaS multi-tenant de Gerenciamento de Chamados Técnicos de T.I
 
 ## Stack Utilizada
 
@@ -101,4 +101,4 @@ fix: corrigir erro ao carregar configurações
 
 ### Diagrama Caso de Uso
 
-![alt text](helptrack.drawio.png)
+![alt text](<helptrack.drawio (1).png>)

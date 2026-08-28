@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 from zoneinfo import ZoneInfo
 from app.database.database import Base
 from sqlalchemy import (

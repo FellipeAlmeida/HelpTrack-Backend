@@ -1,9 +1,6 @@
-from app.database.database import SessionLocal
 from app.models.prioridade_chamado_model import PrioridadeChamado
 
-def create_prioridades():
-
-    db = SessionLocal
+def create_prioridades(db):
 
     prioridades = ['baixa', 'media', 'alta', 'critica']
 

@@ -5,12 +5,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DB_URL = os.getenv("DB_URL")
+DB_URL_DOCKER = os.getenv("DB_URL_DOCKER")
 
-if not DB_URL:
-    raise ValueError("DB_URL não configurada")
+if not DB_URL_DOCKER:
+    raise ValueError("DB_URL_DOCKER não configurada")
 
-engine = create_engine(DB_URL)
+engine = create_engine(DB_URL_DOCKER)
 
 SessionLocal = sessionmaker(
     autocommit=False,
