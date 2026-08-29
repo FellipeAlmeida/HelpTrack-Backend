@@ -15,7 +15,7 @@ SECRET = os.getenv("JWT_SECRET")
 ALGORITHM = os.getenv("JWT_ALGORITHM")
 security = HTTPBearer()
 
-Perfil = Literal["funcionario", "admin"]
+Perfil = Literal["superadmin", "admin", 'cliente', 'tecnico']
 
 def autentica(token: str):
     try:

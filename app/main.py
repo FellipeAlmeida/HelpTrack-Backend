@@ -16,7 +16,9 @@ from app.exceptions.exceptions import (
     CredentialsError,
     UserNotActive,
     InvalidData,
-    ExistingAccount
+    ExistingAccount,
+    CompanyNotFound,
+    ExistingCompany
 )
 
 from app.exceptions.handlers import (
@@ -27,7 +29,9 @@ from app.exceptions.handlers import (
     credentials_error_handler,
     user_not_active_handler,
     invalid_data_handler,
-    existing_account_handler
+    existing_account_handler,
+    company_not_found_handler,
+    existing_company_handler
 )
 
 app = FastAPI()
@@ -74,6 +78,15 @@ app.add_exception_handler(
     existing_account_handler
 )
 
+app.add_exception_handler(
+    CompanyNotFound,
+    company_not_found_handler
+)
+
+app.add_exception_handler(
+    ExistingCompany,
+    existing_company_handler
+)
 # ---------------- HANDLERS PARA AS EXCEÇÕES ----------------
 
 @app.on_event("startup")

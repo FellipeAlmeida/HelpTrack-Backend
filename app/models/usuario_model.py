@@ -37,4 +37,6 @@ class Usuario(Base):
 
     criado_em = Column(DateTime, default=horario_br)
 
+    deleted_at = Column(DateTime)
+
 

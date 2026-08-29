@@ -23,6 +23,7 @@ def criar_token_login(usuario):
         "email": usuario.email,
         "id": usuario.id,
         "perfil": usuario.perfil,
+        "empresa_id": usuario.empresa_id,
         "type": "auth",
         "exp": datetime.utcnow() + timedelta(hours=2)
     }

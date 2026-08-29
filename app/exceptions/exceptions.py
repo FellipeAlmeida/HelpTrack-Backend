@@ -2,7 +2,17 @@ class UserNotFound(Exception):
     def __init__(self, message='Usuário não encontrado.'):
         super().__init__(message)
         self.message = message
-        
+
+class CompanyNotFound(Exception):
+    def __init__(self, message='Empresa não encontrada.'):
+        super().__init__(message)
+        self.message = message
+
+class ExistingCompany(Exception):
+    def __init__(self, message='Empresa já cadastrada.'):
+        super().__init__(message)
+        self.message = message
+
 class CredentialsError(Exception):
     def __init__(self, message='Credenciais Inválidas.'):
         super().__init__(message)

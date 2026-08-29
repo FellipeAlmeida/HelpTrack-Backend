@@ -1,5 +1,4 @@
 from pydantic import BaseModel, EmailStr
-from typing import List
 from app.core.type_password import PasswordStr
 
 class LoginRequest(BaseModel):

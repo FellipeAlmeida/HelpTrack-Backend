@@ -17,7 +17,7 @@ def create_user(data: CreateUser, db: Session = Depends(get_db)):
 
 # ---------------------- LISTA ----------------------
 
-@user_routes.get('/{id}', response_model=GetUserResponse, dependencies=[Depends(autorizar_roles(["admin"]))])
+@user_routes.get('/{id}', response_model=GetUserResponse, dependencies=[Depends(autorizar_roles(["superadmin"]))])
 def get_user_by_id(id: int, db: Session = Depends(get_db)):
 
     user = get_user_by_id_service(id, db)

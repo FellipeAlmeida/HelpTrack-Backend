@@ -3,6 +3,8 @@ from sqlalchemy import (
     Column,
     Integer,
     String,
+    Boolean,
+    DateTime
 )
 
 class Empresa(Base):
@@ -10,5 +12,7 @@ class Empresa(Base):
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     nome_empresa = Column(String(100), nullable=False)
-    cnpj = Column(String(50), nullable=False)
+    cnpj = Column(String(50), nullable=False, unique=True)
+    ativo = Column(Boolean, default=True, nullable=False)
+    deleted_at = Column(DateTime)
 
