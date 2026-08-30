@@ -1,3 +1,5 @@
+from typing import List
+from datetime import datetime
 from pydantic import BaseModel, EmailStr
 from app.core.type_password import PasswordStr
 
@@ -26,5 +28,13 @@ class GetUserResponse(BaseModel):
     email: EmailStr
     nome: str
     perfil: str
+    ativo: bool
+    criado_em: datetime | None = None
     empresa_id: int
 
+class ListUserResponse(BaseModel):
+    page: int
+    size: int
+    total: int
+    total_pages: int
+    items: List[GetUserResponse]

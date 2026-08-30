@@ -1,3 +1,5 @@
+from math import ceil
+
 from jose import jwt
 from datetime import datetime, timedelta
 import os
@@ -134,6 +136,8 @@ def users_to_json(user:Usuario):
         'perfil': user.perfil,
         'email': user.email,
         'empresa_id': user.empresa_id,
+        'ativo': user.ativo,
+        'criado_em': user.criado_em,
         'id': user.id
     }
 
@@ -145,3 +149,37 @@ def get_user_by_id_service(id, db):
         raise UserNotFound()
 
     return users_to_json(user)
+
+# ------------------------- LISTA -------------------------
+
+def get_all_users(page, size, db):
+    total = db.query(Usuario).count
+
+    users = (
+        db.query(Usuario)
+        .offset((page - 1) * size)
+        .limit(size)
+        .all()
+    )
+
+    return {
+        "page": page,
+        "size": size,
+        "total": total,
+        "total_pages": ceil(total / size) if total > 0 else 1,
+        "items": [users_to_json(user) for user in users]
+    }
+
+# ------------------------- DESATIVA -------------------------
+
+def desactivate_user_by_id(id, db):
+
+    user = db.query(Usuario).filter(Usuario.id == id).first()
+
+    if not user:
+        raise UserNotFound()
+
+    user.ativo = False
+
+    db.commit()
+    db.refresh(user)

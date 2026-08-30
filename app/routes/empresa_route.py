@@ -1,4 +1,3 @@
-from typing import List
 from fastapi import APIRouter, Depends, Query
 from app.database.database import get_db
 from sqlalchemy.orm import Session
@@ -19,7 +18,7 @@ def create_company(data: CreateCompany, db: Session = Depends(get_db)):
 # ---------------------- LISTAR ----------------------
 
 @empresa_routes.get('/list', response_model=ListCompanyResponse)
-def get_all(page: int = Query(1, ge=1), size: int = Query(1, le=100), db: Session = Depends(get_db), usuario_logado: dict = Depends(autorizar_roles(["superadmin"]))):
+def get_all(page: int = Query(1, ge=1), size: int = Query(1, le=100), db: Session = Depends(get_db), dependencies=[Depends(autorizar_roles(["superadmin"]))]):
 
     companies = get_all_companies(page, size, db)
     return companies
@@ -27,7 +26,7 @@ def get_all(page: int = Query(1, ge=1), size: int = Query(1, le=100), db: Sessio
 # ---------------------- BUSCA ----------------------
 
 @empresa_routes.get('/{id}', response_model=GetCompanyResponse)
-def get_company(id: int, db: Session = Depends(get_db), usuario_logado: dict = Depends(autorizar_roles(["superadmin"]))):
+def get_company(id: int, db: Session = Depends(get_db),  dependencies=Depends(autorizar_roles(["superadmin"]))):
 
     company = get_company_by_id(id, db)
     return company
@@ -43,7 +42,7 @@ def edit_company(data: EditCompanyRequest, db: Session = Depends(get_db), usuari
 # ---------------------- DESATIVA POR ID ----------------------
 
 @empresa_routes.patch('/{id}/desactivate')
-def desactivate_company(id: int, db: Session = Depends(get_db), usuario_logado: dict = Depends(autorizar_roles(["superadmin"]))):
+def desactivate_company(id: int, db: Session = Depends(get_db), dependencies=Depends(autorizar_roles(["superadmin"]))):
 
     company = desactivate_company_by_id(id, db)
     return {'message': 'Empresa desativada com sucesso', 'company': company}
