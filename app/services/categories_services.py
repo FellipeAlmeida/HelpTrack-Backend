@@ -63,4 +63,27 @@ def get_category_service(id, db):
 # ---------------------- EDITA ----------------------
 
 def edit_category_by_id(id, data, db):
-    
+    category = db.query(CategoriasChamado).filter(CategoriasChamado.id == id).first()
+
+    if not category:
+        raise ModuleNotFound('Categoria')
+
+    valor = data.valor
+
+    category.valor = valor
+
+    db.commit()
+    db.refresh(category)
+
+    return category
+
+# ---------------------- EXCLUI ----------------------
+
+def delete_category_by_id(id, db):
+    category = db.query(CategoriasChamado).filter(CategoriasChamado.id == id).first()
+
+    if not category:
+        raise ModuleNotFound('Categoria')
+
+    db.delete(category)
+    db.commit()

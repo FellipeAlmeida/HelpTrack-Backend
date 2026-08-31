@@ -3,7 +3,7 @@ from app.database.database import get_db
 from sqlalchemy.orm import Session
 from app.middlewares.auth import autorizar_roles
 from app.schemas.categories_schemas import CreateCategoryRequest, GetCategoryResponse, ListCategoryResponse, EditCategoryRequest
-from app.services.categories_services import create_category_service, get_all_categories, get_category_service, edit_category_by_id
+from app.services.categories_services import create_category_service, get_all_categories, get_category_service, edit_category_by_id, delete_category_by_id
 
 category_routes = APIRouter(tags=["04. Categorias"], prefix='/categoria')
 
@@ -38,3 +38,11 @@ def edit_category(id: int, data: EditCategoryRequest, db: Session = Depends(get_
 
     category = edit_category_by_id(id, data, db)
     return {'message': 'Categoria editada com sucesso!', 'category': category}
+
+# ---------------------- EXCLUI ----------------------
+
+@category_routes.delete('/{id}')
+def delete_category(id: int, db: Session = Depends(get_db)):
+
+    delete_category_by_id(id, db)
+    return {'message': 'Categoria deletada com sucesso!'}
