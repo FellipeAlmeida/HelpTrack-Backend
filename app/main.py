@@ -8,30 +8,27 @@ from app.seeds.status_chamado_seeds import create_status_chamados
 from app.routes.user_route import user_routes
 from app.routes.empresa_route import empresa_routes
 from app.routes.auth_route import auth_routes
+from app.routes.categories_route import category_routes
 from app.exceptions.exceptions import (
-    UserNotFound,
+    ModuleNotFound,
     UserBlocked,
     UserNotAuthorized,
     TokenError,
     CredentialsError,
     UserNotActive,
     InvalidData,
-    ExistingAccount,
-    CompanyNotFound,
-    ExistingCompany
+    ExistingModule
 )
 
 from app.exceptions.handlers import (
-    user_not_found_handler,
     user_blocked_handler,
     user_not_authorized_handler,
     token_error_handler,
     credentials_error_handler,
     user_not_active_handler,
     invalid_data_handler,
-    existing_account_handler,
-    company_not_found_handler,
-    existing_company_handler
+    existing_module_handler,
+    module_not_found_handler
 )
 
 app = FastAPI()
@@ -39,8 +36,8 @@ app = FastAPI()
 # ---------------- HANDLERS PARA AS EXCEÇÕES ----------------
 
 app.add_exception_handler(
-    UserNotFound,
-    user_not_found_handler
+    ModuleNotFound,
+    module_not_found_handler
 )
 
 app.add_exception_handler(
@@ -74,19 +71,10 @@ app.add_exception_handler(
 )
 
 app.add_exception_handler(
-    ExistingAccount,
-    existing_account_handler
+    ExistingModule,
+    existing_module_handler
 )
 
-app.add_exception_handler(
-    CompanyNotFound,
-    company_not_found_handler
-)
-
-app.add_exception_handler(
-    ExistingCompany,
-    existing_company_handler
-)
 # ---------------- HANDLERS PARA AS EXCEÇÕES ----------------
 
 @app.on_event("startup")
@@ -110,6 +98,7 @@ api_router = APIRouter(prefix='/api')
 api_router.include_router(auth_routes)
 api_router.include_router(user_routes)
 api_router.include_router(empresa_routes)
+api_router.include_router(category_routes)
 
 app.include_router(api_router)
 

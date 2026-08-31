@@ -2,19 +2,17 @@ from fastapi import Request
 from fastapi.responses import JSONResponse
 
 from app.exceptions.exceptions import (
-    UserNotFound,
+    ModuleNotFound,
     UserBlocked,
     UserNotAuthorized,
     TokenError,
     CredentialsError,
     UserNotActive,
     InvalidData,
-    ExistingAccount,
-    CompanyNotFound,
-    ExistingCompany
+    ExistingModule
 )
 
-async def user_not_found_handler(request: Request, exc: UserNotFound):
+async def module_not_found_handler(request: Request, exc: ModuleNotFound):
     return JSONResponse(
         status_code=404,
         content={
@@ -70,23 +68,7 @@ async def invalid_data_handler(request: Request, exc: InvalidData):
         }
     )
 
-async def existing_account_handler(request: Request, exc: ExistingAccount):
-    return JSONResponse(
-        status_code=409,
-        content={
-            "detail": exc.message
-        }
-    )
-
-async def company_not_found_handler(request: Request, exc: CompanyNotFound):
-    return JSONResponse(
-        status_code=404,
-        content={
-            "detail": exc.message
-        }
-    )
-
-async def existing_company_handler(request: Request, exc: ExistingCompany):
+async def existing_module_handler(request: Request, exc: ExistingModule):
     return JSONResponse(
         status_code=409,
         content={

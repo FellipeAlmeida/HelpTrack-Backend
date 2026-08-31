@@ -7,7 +7,7 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy.orm import Session
 from app.database.database import get_db
 from app.models.usuario_model import Usuario
-from app.exceptions.exceptions import TokenError, UserNotFound, UserNotActive, UserNotAuthorized
+from app.exceptions.exceptions import TokenError, ModuleNotFound, UserNotActive, UserNotAuthorized
 
 load_dotenv()
 
@@ -35,7 +35,7 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(securit
     ).first()
 
     if not user:
-        raise UserNotFound()
+        raise ModuleNotFound('Usuário')
 
     if not user.ativo:
         raise UserNotActive()

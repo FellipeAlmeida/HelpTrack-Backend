@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Query
 from app.database.database import get_db
 from sqlalchemy.orm import Session
-from app.schemas.empresa_schemas import CreateCompany, GetCompanyResponse, EditCompanyRequest, ListCompanyResponse
+from app.schemas.empresa_schemas import CreateCompanyRequest, GetCompanyResponse, EditCompanyRequest, ListCompanyResponse
 from app.middlewares.auth import autorizar_roles
 from app.services.empresa_services import create_company_service, get_company_by_id, edit_company_by_id, desactivate_company_by_id, get_all_companies, desactivate_company_by_token
 
@@ -10,7 +10,7 @@ empresa_routes = APIRouter(tags=["03. Empresa"], prefix='/empresa')
 # ---------------------- CRIA ----------------------
 
 @empresa_routes.post('/')
-def create_company(data: CreateCompany, db: Session = Depends(get_db)):
+def create_company(data: CreateCompanyRequest, db: Session = Depends(get_db)):
 
     create_company_service(data, db)
     return {'message': 'Empresa criada com sucesso!', 'status_code': 201}
@@ -45,7 +45,7 @@ def edit_company(data: EditCompanyRequest, db: Session = Depends(get_db), usuari
 def desactivate_company(id: int, db: Session = Depends(get_db), dependencies=Depends(autorizar_roles(["superadmin"]))):
 
     company = desactivate_company_by_id(id, db)
-    return {'message': 'Empresa desativada com sucesso', 'company': company}
+    return {'message': 'Empresa desativada com sucesso!', 'company': company}
 
 # ---------------------- DESATIVA POR TOKEN ----------------------
 

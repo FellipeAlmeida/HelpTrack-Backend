@@ -1,6 +1,6 @@
 from math import ceil
 from app.models.empresa_model import Empresa
-from app.exceptions.exceptions import InvalidData, CompanyNotFound, ExistingCompany
+from app.exceptions.exceptions import InvalidData, ModuleNotFound, ExistingModule
 
 # ---------------------- CRIA ----------------------
 
@@ -9,12 +9,12 @@ def create_company_service(data, db):
     cnpj = data.cnpj
 
     if not nome_empresa or not cnpj:
-        return InvalidData()
+        raise InvalidData()
 
     cnpj_existe = db.query(Empresa).filter(Empresa.cnpj == cnpj).first()
 
     if cnpj_existe:
-        raise ExistingCompany()
+        raise ExistingModule('Empresa')
 
     new_company = Empresa(
         nome_empresa = nome_empresa,
@@ -40,7 +40,7 @@ def get_company_by_id(id, db):
     company = db.query(Empresa).filter(Empresa.id == id).first()
 
     if not company:
-        raise CompanyNotFound()
+        raise ModuleNotFound('Empresa')
 
     return company_json(company)
 
@@ -50,7 +50,7 @@ def edit_company_by_id(data, usuario_logado, db):
     company = db.query(Empresa).filter(Empresa.id == usuario_logado['empresa_id']).first()
 
     if not company:
-        raise CompanyNotFound()
+        raise ModuleNotFound('Empresa')
 
     nome_empresa = data.nome_empresa
 
@@ -67,7 +67,7 @@ def desactivate_company_by_id(id, db):
     company = db.query(Empresa).filter(Empresa.id == id).first()
 
     if not company:
-        raise CompanyNotFound()
+        raise ModuleNotFound('Empresa')
 
     company.ativo = False
 
@@ -82,7 +82,7 @@ def desactivate_company_by_token(usuario_logado, db):
     company = db.query(Empresa).filter(Empresa.id == usuario_logado['empresa_id']).first()
 
     if not company:
-        raise CompanyNotFound()
+        raise ModuleNotFound('Empresa')
     
     company.ativo = False
 

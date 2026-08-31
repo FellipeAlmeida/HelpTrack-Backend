@@ -1,4 +1,4 @@
-from app.schemas.users_schemas import LoginRequest, LoginResponse
+from app.schemas.auth_schemas import LoginRequest, LoginResponse
 from datetime import datetime
 from app.models.usuario_model import Usuario
 from app.exceptions.exceptions import CredentialsError, UserNotActive, UserBlocked

@@ -1,17 +1,12 @@
-class UserNotFound(Exception):
-    def __init__(self, message='Usuário não encontrado.'):
-        super().__init__(message)
-        self.message = message
+class ModuleNotFound(Exception):
+    def __init__(self, module):
+        self.message = f'{module} não encontrada'
+        super().__init__(self.message)
 
-class CompanyNotFound(Exception):
-    def __init__(self, message='Empresa não encontrada.'):
-        super().__init__(message)
-        self.message = message
-
-class ExistingCompany(Exception):
-    def __init__(self, message='Empresa já cadastrada.'):
-        super().__init__(message)
-        self.message = message
+class ExistingModule(Exception):
+    def __init__(self, module):
+        self.message = f'{module} já cadastrada.'
+        super().__init__(self.message)
 
 class CredentialsError(Exception):
     def __init__(self, message='Credenciais Inválidas.'):
@@ -40,10 +35,5 @@ class UserNotAuthorized(Exception):
 
 class InvalidData(Exception):
     def __init__(self, message='Dados inválidos.'):
-        super().__init__(message)
-        self.message = message
-
-class ExistingAccount(Exception):
-    def __init__(self, message='Conta já cadastrada.'):
         super().__init__(message)
         self.message = message

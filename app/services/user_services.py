@@ -1,5 +1,4 @@
 from math import ceil
-
 from jose import jwt
 from datetime import datetime, timedelta
 import os
@@ -7,7 +6,7 @@ from dotenv import load_dotenv
 from app.models.usuario_model import Usuario
 from sqlalchemy.orm import Session
 from sqlalchemy import update
-from app.exceptions.exceptions import CredentialsError, UserBlocked, ExistingAccount, UserNotFound
+from app.exceptions.exceptions import CredentialsError, UserBlocked, ExistingModule, ModuleNotFound
 from sqlalchemy.orm import Session
 from app.exceptions.exceptions import InvalidData
 from app.models.usuario_model import Usuario
@@ -111,7 +110,7 @@ def register_user(data, db):
     user = db.query(Usuario).filter(Usuario.email == email).first()
 
     if user:
-        raise ExistingAccount()
+        raise ExistingModule('Usuário')
 
     novo_user = Usuario(
         email = email,
@@ -146,7 +145,7 @@ def get_user_by_id_service(id, db):
     user = db.query(Usuario).filter(Usuario.id == id).first()
 
     if not user:
-        raise UserNotFound()
+        raise ModuleNotFound('Usuário')
 
     return users_to_json(user)
 
@@ -177,7 +176,7 @@ def desactivate_user_by_id(id, db):
     user = db.query(Usuario).filter(Usuario.id == id).first()
 
     if not user:
-        raise UserNotFound()
+        raise ModuleNotFound('Usuário')
 
     user.ativo = False
 

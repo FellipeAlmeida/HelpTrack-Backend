@@ -9,5 +9,5 @@ class CategoriasChamado(Base):
     __tablename__ = "categorias_chamado"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    valor = Column(String(50), nullable=False)
+    valor = Column(String(50), nullable=False, unique=True)
 
