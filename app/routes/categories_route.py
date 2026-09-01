@@ -5,7 +5,7 @@ from app.middlewares.auth import autorizar_roles
 from app.schemas.categories_schemas import CreateCategoryRequest, GetCategoryResponse, ListCategoryResponse, EditCategoryRequest
 from app.services.categories_services import create_category_service, get_all_categories, get_category_service, edit_category_by_id, delete_category_by_id
 
-category_routes = APIRouter(tags=["04. Categorias"], prefix='/categoria')
+category_routes = APIRouter(tags=["04. Categorias"], prefix='/categoria', dependencies=[Depends(autorizar_roles(['superadmin']))])
 
 # ---------------------- CRIA ----------------------
 

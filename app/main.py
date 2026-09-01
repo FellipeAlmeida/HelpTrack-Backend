@@ -9,6 +9,7 @@ from app.routes.user_route import user_routes
 from app.routes.empresa_route import empresa_routes
 from app.routes.auth_route import auth_routes
 from app.routes.categories_route import category_routes
+from app.routes.chamados_route import chamados_routes
 from app.exceptions.exceptions import (
     ModuleNotFound,
     UserBlocked,
@@ -99,6 +100,7 @@ api_router.include_router(auth_routes)
 api_router.include_router(user_routes)
 api_router.include_router(empresa_routes)
 api_router.include_router(category_routes)
+api_router.include_router(chamados_routes)
 
 app.include_router(api_router)
 
