@@ -3,7 +3,7 @@ from app.database.database import get_db
 from sqlalchemy.orm import Session
 from app.schemas.empresa_schemas import CreateCompanyRequest, GetCompanyResponse, EditCompanyRequest, ListCompanyResponse
 from app.middlewares.auth import autorizar_roles
-from app.services.empresa_services import create_company_service, get_company_by_id, edit_company_by_id, desactivate_company_by_id, get_all_companies, desactivate_company_by_token
+from app.services.empresa_services import create_company_service, get_company_by_id, edit_company_by_token, desactivate_company_by_id, get_all_companies, desactivate_company_by_token
 
 empresa_routes = APIRouter(tags=["03. Empresa"], prefix='/empresa')
 
@@ -36,7 +36,7 @@ def get_company(id: int, db: Session = Depends(get_db),  dependencies=Depends(au
 @empresa_routes.patch('/edit')
 def edit_company(data: EditCompanyRequest, db: Session = Depends(get_db), usuario_logado: dict = Depends(autorizar_roles(["admin"]))):
 
-    company = edit_company_by_id(data, usuario_logado, db)
+    company = edit_company_by_token(data, usuario_logado, db)
     return {'message': 'Empresa editada com sucesso!', 'company': company}
 
 # ---------------------- DESATIVA POR ID ----------------------

@@ -46,7 +46,7 @@ def get_company_by_id(id, db):
 
 # ---------------------- EDITA BY TOKEN ----------------------
 
-def edit_company_by_id(data, usuario_logado, db):
+def edit_company_by_token(data, usuario_logado, db):
     company = db.query(Empresa).filter(Empresa.id == usuario_logado['empresa_id']).first()
 
     if not company:
