@@ -1,11 +1,11 @@
 class ModuleNotFound(Exception):
     def __init__(self, module):
-        self.message = f'{module} não encontrada'
+        self.message = f'{module} não encontrado/a.'
         super().__init__(self.message)
 
 class ExistingModule(Exception):
     def __init__(self, module):
-        self.message = f'{module} já cadastrada.'
+        self.message = f'{module} já cadastrado/a.'
         super().__init__(self.message)
 
 class CredentialsError(Exception):
