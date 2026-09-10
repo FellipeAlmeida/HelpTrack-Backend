@@ -80,3 +80,48 @@ def get_historico_service(id, db):
         raise ModuleNotFound('Chamado')
 
     return historico_to_json(historico)
+
+# ---------------------- EDIT ----------------------
+
+def edit_historico_service(id, data, db):
+    chamado_id = data.chamado_id
+    cliente_id = data.cliente_id
+    tipo_evento_id = data.tipo_evento_id
+    descricao = data.descricao
+    criado_em = data.criado_em
+    atualizado_em = data.atualizado_em
+
+    historico = db.query(HistoricoChamado).filter(HistoricoChamado.id == id).first()
+
+    if not historico:
+        raise ModuleNotFound('Historico')
+
+    if not chamado_id:
+        raise ModuleNotFound('Chamado')
+    
+    if not cliente_id:
+        raise ModuleNotFound('Cliente')
+
+    if not descricao:
+        raise ModuleNotFound('Descrição')
+
+    historico.chamado_id = chamado_id
+    historico.cliente_id = cliente_id
+    historico.tipo_evento_id = tipo_evento_id
+    historico.descricao = descricao
+    historico.criado_em = criado_em
+    historico.atualizado_em = atualizado_em
+
+    db.commit()
+    db.refresh(historico)
+
+# ---------------------- DELETE ----------------------
+
+def delete_historico_by_id(id, db):
+    historico = db.query(HistoricoChamado).filter(HistoricoChamado.id == id).first()
+
+    if not historico:
+        raise ModuleNotFound('Historico')
+
+    db.delete(historico)
+    db.commit()
