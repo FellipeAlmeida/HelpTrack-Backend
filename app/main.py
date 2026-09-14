@@ -11,6 +11,7 @@ from app.routes.auth_route import auth_routes
 from app.routes.categories_route import category_routes
 from app.routes.chamados_route import chamados_routes
 from app.routes.historico_chamado_route import historico_routes
+from fastapi.middleware.cors import CORSMiddleware
 from app.exceptions.exceptions import (
     ModuleNotFound,
     UserBlocked,
@@ -34,6 +35,21 @@ from app.exceptions.handlers import (
 )
 
 app = FastAPI()
+
+# ---------------- CORS ----------------
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+origins = [
+    "http://localhost:5173",
+    "*", 
+]
 
 # ---------------- HANDLERS PARA AS EXCEÇÕES ----------------
 
@@ -77,7 +93,7 @@ app.add_exception_handler(
     existing_module_handler
 )
 
-# ---------------- HANDLERS PARA AS EXCEÇÕES ----------------
+# ---------------- SEEDS ----------------
 
 @app.on_event("startup")
 def startup():
