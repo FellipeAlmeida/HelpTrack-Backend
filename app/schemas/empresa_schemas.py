@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from datetime import datetime
 from app.core.type_cnpj import CnpjStr
 
-class CreateCompany(BaseModel):
+class CreateCompanyRequest(BaseModel):
     nome_empresa: str
     cnpj: CnpjStr
 
