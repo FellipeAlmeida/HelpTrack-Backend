@@ -16,6 +16,34 @@ services:
     volumes:
       - "postgres_data:/var/lib/postgresql/data"
 
+  db_test:
+    image: postgres:16-alpine
+    ports: 
+      - 5433:5432
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", postgres, "-d", db_test]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    environment: 
+      POSTGRES_USER: postgres
+      POSTGRES_DB: db_test
+      POSTGRES_PASSWORD: 123
+    profiles: 
+      - testing
+    
+  test_runner:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    environment:
+      DATABASE_URL: postgresql+psycopg2://postgres:123@db_test:5432/db_test
+    depends_on:
+      db_test:
+        condition: service_healthy
+    profiles:
+      - testing
+
   api:
     container_name: helptrack-api
     build:
@@ -26,9 +54,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    command: >
-      sh -c "alembic upgrade head &&
-      uvicorn app.main:app --host 0.0.0.0 --port 5000"
     networks:
       - rede_local
 

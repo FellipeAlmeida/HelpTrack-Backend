@@ -7,3 +7,5 @@ sqlalchemy
 pydantic[email]
 werkzeug
 python-jose
+pytest
+httpx2

@@ -13,7 +13,16 @@ load_dotenv()
 config = context.config
 
 def get_url():
-    return os.getenv("DB_URL_DOCKER")
+    url = (
+        os.getenv("DATABASE_URL")
+        or os.getenv("DB_URL_DOCKER")
+        or os.getenv("DB_URL")
+    )
+
+    if not url:
+        raise RuntimeError("Nenhuma URL de banco foi configurada")
+
+    return url.replace("%", "%%")
 
 config.set_main_option("sqlalchemy.url", get_url())
 

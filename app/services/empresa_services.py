@@ -23,7 +23,9 @@ def create_company_service(data, db):
 
     db.add(new_company)
     db.commit()
-    db.close()
+    db.refresh(new_company)
+
+    return new_company
 
 # ---------------------- BUSCA ----------------------
 

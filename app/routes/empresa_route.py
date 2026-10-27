@@ -9,11 +9,11 @@ empresa_routes = APIRouter(tags=["03. Empresa"], prefix='/empresa')
 
 # ---------------------- CRIA ----------------------
 
-@empresa_routes.post('/')
+@empresa_routes.post('/', status_code=201)
 def create_company(data: CreateCompanyRequest, db: Session = Depends(get_db)):
 
-    create_company_service(data, db)
-    return {'message': 'Empresa criada com sucesso!', 'status_code': 201}
+    empresa = create_company_service(data, db)
+    return {'message': 'Empresa criada com sucesso!', 'id': empresa.id}
 
 # ---------------------- LISTAR ----------------------
 

@@ -9,7 +9,7 @@ user_routes = APIRouter(tags=["02. Users"], prefix='/users')
 
 # ---------------------- CRIA ----------------------
 
-@user_routes.post('/register', response_model=CreateUserResponse)
+@user_routes.post('/register', response_model=CreateUserResponse, status_code=201)
 def create_user(data: CreateUser, db: Session = Depends(get_db)):
 
     register_user(data, db)
